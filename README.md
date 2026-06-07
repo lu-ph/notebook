@@ -1,0 +1,1 @@
+A side-note panel that can be invoked by the agent for presentations.
