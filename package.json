@@ -1,6 +1,6 @@
 {
-  "name": "notebook",
-  "productName": "notebook",
+  "name": "note-panel",
+  "productName": "note-panel",
   "version": "1.0.0",
   "description": "My Electron application description",
   "main": ".vite/build/main.js",

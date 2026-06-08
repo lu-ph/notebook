@@ -152,10 +152,10 @@ function createOrUpdateWindow(args: string[]): void {
 function getArgs(): string[] {
   const args: string[] = app.isPackaged ? process.argv.slice(1) : process.argv.slice(2);
   
-  if (process.env.NOTEBOOK_FILE) {
-    const envArgs = [process.env.NOTEBOOK_FILE];
-    if (process.env.NOTEBOOK_POS) {
-      envArgs.push(process.env.NOTEBOOK_POS);
+  if (process.env.NOTE_PANEL_FILE) {
+    const envArgs = [process.env.NOTE_PANEL_FILE];
+    if (process.env.NOTE_PANEL_POS) {
+      envArgs.push(process.env.NOTE_PANEL_POS);
     }
     return envArgs;
   }
