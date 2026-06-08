@@ -35,6 +35,15 @@ export default function App() {
       overflow: 'hidden', 
       backgroundColor: '#ffffff' 
     }}>
+      <style>{`
+        html, body {
+          margin: 0;
+          padding: 0;
+          height: 100%;
+          width: 100%;
+          overflow: hidden;
+        }
+      `}</style>
       <textarea
         value={text}
         onChange={handleChange}

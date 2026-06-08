@@ -11,11 +11,11 @@ let currentContent = '';
 let targetFilePath = '';
 const statusFilePath: string = path.join(app.getPath('userData'), 'current_status.json');
 
-const updateStatusFile = (filePath: string): void => {
+function updateStatusFile(filePath: string): void {
   fs.writeFileSync(statusFilePath, JSON.stringify({ editingFile: filePath }), 'utf-8');
-};
+}
 
-const handleArgs = (args: string[]): boolean => {
+function handleArgs(args: string[]): boolean {
   if (args.includes('--status') || args.includes('status')) {
     if (fs.existsSync(statusFilePath)) {
       try {
@@ -31,9 +31,9 @@ const handleArgs = (args: string[]): boolean => {
     return true;
   }
   return false;
-};
+}
 
-const loadAndWatchFile = (filePath: string): void => {
+function loadAndWatchFile(filePath: string): void {
   if (fileWatcher) {
   fileWatcher.close();
   fileWatcher = null;
@@ -81,9 +81,9 @@ const loadAndWatchFile = (filePath: string): void => {
   currentContent = '';
   mainWindow?.webContents.send('file-loaded', '');
   }
-};
+}
 
-const positionWindow = (position: string): void => {
+function positionWindow(position: string): void {
   const primaryDisplay = screen.getPrimaryDisplay();
   const { width, height } = primaryDisplay.workAreaSize;
   const windowWidth = Math.floor(width / 5);
@@ -103,9 +103,9 @@ const positionWindow = (position: string): void => {
       height: windowHeight
     });
   }
-};
+}
 
-const createOrUpdateWindow = (args: string[]): void => {
+function createOrUpdateWindow(args: string[]): void {
   const filePath = args[0] || '';
   const position = args[1] || 'left';
 
@@ -147,9 +147,9 @@ const createOrUpdateWindow = (args: string[]): void => {
   
   if (mainWindow.isMinimized()) mainWindow.restore();
   mainWindow.focus();
-};
+}
 
-const getArgs = (): string[] => {
+function getArgs(): string[] {
   const args: string[] = app.isPackaged ? process.argv.slice(1) : process.argv.slice(2);
   
   if (process.env.NOTEBOOK_FILE) {
@@ -161,7 +161,7 @@ const getArgs = (): string[] => {
   }
   
   return args;
-};
+}
 
 const initialArgs: string[] = getArgs();
 
