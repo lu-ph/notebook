@@ -1,4 +1,4 @@
-import React, { useEffect, useState, ChangeEvent } from 'react';
+import React, { useEffect, useState, ChangeEvent, useRef } from 'react';
 
 declare global {
   interface Window {
@@ -12,10 +12,26 @@ declare global {
 
 export default function App() {
   const [text, setText] = useState<string>('');
+  const textareaRef = useRef<HTMLTextAreaElement>(null);
 
   useEffect(() => {
     window.api.onFileLoaded((content: string) => setText(content));
-    window.api.onFileChanged((content: string) => setText(content));
+    
+    window.api.onFileChanged((newText: string) => {
+      setText((prevText) => {
+        const isAppendAtBottom = newText.startsWith(prevText) && newText.length > prevText.length;
+
+        if (isAppendAtBottom) {
+          setTimeout(() => {
+            if (textareaRef.current) {
+              textareaRef.current.scrollTop = textareaRef.current.scrollHeight;
+            }
+          }, 0);
+        }
+
+        return newText;
+      });
+    });
   }, []);
 
   const handleChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
@@ -45,6 +61,7 @@ export default function App() {
         }
       `}</style>
       <textarea
+        ref={textareaRef}
         value={text}
         onChange={handleChange}
         spellCheck={false}
